@@ -8,8 +8,8 @@ horizon.panel.ggplot <- function(df, title) {
   #limit to 3 so it will be much more manageable
   nbands = 3
   # make this value equal to 1/nbands * range of the dataset
-  upperLimit <- max(df[,3],na.rm=TRUE)
-  lowerLimit <- min(df[,3],na.rm=TRUE)
+  upperLimit <- tail(pretty(df[,3],nrow(df)),1)
+  lowerLimit <- head(pretty(df[,3],nrow(df)),1)
   limit<- max(upperLimit,abs(lowerLimit))
   horizonscale <- (1/nbands)*limit
   #get some decent colors from RColorBrewer
