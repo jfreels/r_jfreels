@@ -7,7 +7,7 @@ drought<-function (ror) {
   dat3<-transform(dat2,value=as.integer(row.names(dat2))-index)
   dat3$value[dat3$value<0]<-NA
   dat3$index[is.na(dat3$value)]<-NA
-  dat3[,3:4]
+  dat3[,2:4]
 }
 
 droughtMax<-function (ror) { as.integer(max(drought(ror)$drought,na.rm=TRUE)) }
