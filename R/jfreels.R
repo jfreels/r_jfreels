@@ -1,5 +1,7 @@
 # Financial Time Series Functions
-ror<-function (price) { head(c(NA,price[-1]/price-1),-1) }
+ror<-function (price,period=1) { 
+  head(c(rep(NA,period),price[-c(1:period)]/price-1),-period) 
+}
 vami<-function (ror) { cumprod(na.omit(ror) + 1) }
 aror<-function (ror) { (1 + cror(ror))^(12/length(ror)) - 1 }
 cror<-function (ror) { tail(vami(ror), 1) - 1 }
