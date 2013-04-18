@@ -13,11 +13,11 @@ omega<-function (ror) { sum(ror[ror>0])/sum(abs(ror[ror<0])) }
 
 stats<-function (longDataFrame) {
   ddply(longDataFrame,.(variable),summarise,
-        cROR=cror(value)*100,
-        aror=aror(value)*100,
-        asd=asd(value)*100,
+        cROR=cror(value),
+        aror=aror(value),
+        asd=asd(value),
         sharpe=sharpe(value),
-        maxdd=maxdd(value)*100,
+        maxdd=maxdd(value),
         maxDroughtPct=droughtMaxPct(value),
         omega=omega(value),
         start=as.character(min(date)),
@@ -31,7 +31,7 @@ calendarTable<-function (oneFundLongDataFrame) {
   row.names(calendarTable)<-calendarTable[,1]
   calendarTable<-calendarTable[,-1]
   calendarTable$Year<-apply(calendarTable,1,aror)
-  calendarTable<-round(calendarTable*100,2)
+  calendarTable<-round(calendarTable,2)
   calendarTable
 }
 
