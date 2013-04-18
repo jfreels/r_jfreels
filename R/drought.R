@@ -15,12 +15,18 @@ drought<-function (ror) {
 # Maximum Drought
 drought.max<-function (ror,percent=FALSE) { 
 	drought.max<-max(drought(x)$value,na.rm=TRUE)
-	ifelse(percent=TRUE,
+	percent<-percent
+	ifelse(percent==TRUE,
 		drought.max/length(ror),
 		drought.max)
-	drought.max
 }
 
 
 # Current Drought
-drought.current<
+drought.current<-function (ror,percent=FALSE) {
+	drought.current<-tail(drought(x)$value,1)
+	percent<-percent
+	ifelse(percent==TRUE,
+		drought.current/length(ror),
+		drought.current)
+}

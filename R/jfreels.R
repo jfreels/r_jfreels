@@ -18,7 +18,7 @@ stats<-function (longDataFrame) {
         asd=asd(value),
         sharpe=sharpe(value),
         maxdd=maxdd(value),
-        maxDroughtPct=droughtMaxPct(value),
+        droughtMaxPct=drought.max(value,percent=true),
         omega=omega(value),
         start=as.character(min(date)),
         end=as.character(max(date)))
