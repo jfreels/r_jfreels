@@ -13,7 +13,7 @@ omega<-function (ror) { sum(ror[ror>0])/sum(abs(ror[ror<0])) }
 
 stats<-function (longDataFrame) {
   ddply(longDataFrame,.(variable),summarise,
-        cROR=cror(value),
+        cror=cror(value),
         aror=aror(value),
         asd=asd(value),
         sharpe=sharpe(value),
