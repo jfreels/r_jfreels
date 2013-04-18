@@ -12,20 +12,20 @@ dd<-function (ror) { -(1 - vami(ror)/cummax(c(1, cummax(vami(ror))))[-1]) }
 omega<-function (ror) { sum(ror[ror>0])/sum(abs(ror[ror<0])) }
 
 stats<-function (longDataFrame) {
-  ddply(longDataFrame,.(fund),summarise,
-        cROR=cror(return)*100,
-        aror=aror(return)*100,
-        asd=asd(return)*100,
-        sharpe=sharpe(return),
-        maxdd=maxdd(return)*100,
-        maxDroughtPct=droughtMaxPct(return),
-        omega=omega(return),
+  ddply(longDataFrame,.(variable),summarise,
+        cROR=cror(value)*100,
+        aror=aror(value)*100,
+        asd=asd(value)*100,
+        sharpe=sharpe(value),
+        maxdd=maxdd(value)*100,
+        maxDroughtPct=droughtMaxPct(value),
+        omega=omega(value),
         start=as.character(min(date)),
         end=as.character(max(date)))
 }
 
 calendarTable<-function (oneFundLongDataFrame) {
-  calendarTable<-dcast(oneFundLongDataFrame,year(date)~month(date),value.var="return")
+  calendarTable<-dcast(oneFundLongDataFrame,year(date)~month(date),value.var="value")
   names(calendarTable)<-c("Year",month.abb)
   calendarTable<-arrange(calendarTable,-Year)
   row.names(calendarTable)<-calendarTable[,1]
