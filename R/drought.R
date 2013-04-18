@@ -1,5 +1,7 @@
 # Drought function: longest flat period in a time series
 # for use with plyr
+
+# All drought values
 drought<-function (ror) {
   dat<-data.frame(ror=ror,cror=vami(ror)-1)
   dat2<-transform(dat,index=ldply(apply(dat[,2,drop=FALSE],1,function (y) { which(y<dat[,2,drop=FALSE])}),function (x) { x[1] }))
@@ -10,5 +12,15 @@ drought<-function (ror) {
   dat3[,2:4]
 }
 
-droughtMax<-function (ror) { as.integer(max(drought(ror)$drought,na.rm=TRUE)) }
-droughtMaxPct<-function (ror) { droughtMax(ror)/length(ror) }
+# Maximum Drought
+drought.max<-function (ror,percent=FALSE) { 
+	drought.max<-max(drought(x)$value,na.rm=TRUE)
+	ifelse(percent=TRUE,
+		drought.max/length(ror),
+		drought.max)
+	drought.max
+}
+
+
+# Current Drought
+drought.current<
