@@ -18,10 +18,10 @@ stats<-function (longDataFrame) {
         asd=asd(value),
         sharpe=sharpe(value),
         maxdd=maxdd(value),
-        droughtMaxPct=drought.max(value,percent=true),
+        #droughtMaxPct=drought.max(value,percent=true),
         omega=omega(value),
-        start=as.character(min(date)),
-        end=as.character(max(date)))
+        start=min(date),
+        end=max(date))
 }
 
 calendarTable<-function (oneFundLongDataFrame) {
