@@ -12,7 +12,8 @@ dd<-function (ror) { -(1 - vami(ror)/cummax(c(1, cummax(vami(ror))))[-1]) }
 omega<-function (ror) { sum(ror[ror>0])/sum(abs(ror[ror<0])) }
 
 jf.stats<-function (longDataFrame) {
-  ddply(longDataFrame,.(variable),summarise,
+  ddply(longDataFrame[,1:3],.(variable),summarise,
+        # data should have columns "date","variable","value"
         cror=cror(value),
         aror=aror(value),
         asd=asd(value),
@@ -22,6 +23,20 @@ jf.stats<-function (longDataFrame) {
         omega=omega(value),
         start=min(date),
         end=max(date))
+}
+
+dt.stats<-function (data.table) {
+  # data should have columns "date","variable","value"
+  dat<-data.table
+  dat[,list(cror=cror(value),
+            aror=aror(value),
+            asd=asd(value),
+            sharpe=sharpe(value),
+            maxdd=maxdd(value),
+            omega=omega(value),
+            start=min(date),
+            end=max(date)),
+      by=variable]
 }
 
 calendarTable<-function (oneFundLongDataFrame) {
