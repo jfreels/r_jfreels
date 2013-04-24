@@ -1,5 +1,6 @@
 # http://timelyportfolio.blogspot.com/2012/08/horizon-on-ggplot2.html
 horizon.panel.ggplot <- function(df, title) {
+  df<-as.data.frame(df)
   #df parameter should be in form of date (x), grouping, and a value (y)
   colnames(df) = c("date","grouping","y")
   # numbers above the origin will be colored differently than numbers below the origin
