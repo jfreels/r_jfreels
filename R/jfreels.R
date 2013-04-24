@@ -10,6 +10,9 @@ sharpe<-function (ror) { aror(ror)/asd(ror) }
 maxdd<-function (ror) { min(dd(ror)) }
 dd<-function (ror) { -(1 - vami(ror)/cummax(c(1, cummax(vami(ror))))[-1]) }
 omega<-function (ror) { sum(ror[ror>0])/sum(abs(ror[ror<0])) }
+percentUp<-function (ror) { values<-na.omit(ror); length(values[values>0])/length(values) }
+cror.roll<-function(ror,...) { rollapplyr(ror,...,FUN=cror,fill=NA) }
+aror.roll<-function(ror,...) { rollapplyr(ror,...,FUN=aror,fill=NA) }
 
 jf.stats<-function (longDataFrame) {
   ddply(longDataFrame[,1:3],.(variable),summarise,
@@ -27,8 +30,7 @@ jf.stats<-function (longDataFrame) {
 
 dt.stats<-function (data.table) {
   # data should have columns "date","variable","value"
-  dat<-data.table
-  dat[,list(cror=cror(value),
+  data.table[,list(cror=cror(value),
             aror=aror(value),
             asd=asd(value),
             sharpe=sharpe(value),
