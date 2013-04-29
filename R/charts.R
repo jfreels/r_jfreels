@@ -12,7 +12,7 @@ jf.vami.chart<-function(longDataFrame,common=TRUE) {
   DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
   common.start.date<-as.Date(max(DT[,min(date),by=variable]$V1))
   common.end.date<-as.Date(min(DT[,max(date),by=variable]$V1))
-  if(common) { DT<-DT[date>=common.start.date&date<=common.end.date] } # common time period or full time period
+  if(common) { DT<-DT[date>=common.start.date&date<=common.end.date,] } # common time period or full time period
   DT.start<-min(DT$date)
   DT.end<-max(DT$date)
   DT[,vami:=vami(value)-1,by=variable]
@@ -32,7 +32,7 @@ jf.dd.chart<-function(longDataFrame,common=TRUE) {
   DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
   common.start.date<-as.Date(max(DT[,min(date),by=variable]$V1))
   common.end.date<-as.Date(min(DT[,max(date),by=variable]$V1))
-  if(common) { DT<-DT[date>=common.start.date&date<=common.end.date] } # common time period or full time period
+  if(common) { DT<-DT[date>=common.start.date&date<=common.end.date,] } # common time period or full time period
   DT.start<-min(DT$date)
   DT.end<-max(DT$date)
   DT[,dd:=dd(value),by=variable]
@@ -52,7 +52,7 @@ jf.rolling.chart<-function(longDataFrame,common=TRUE,width=12) {
   DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
   common.start.date<-as.Date(max(DT[,min(date),by=variable]$V1))
   common.end.date<-as.Date(min(DT[,max(date),by=variable]$V1))
-  if(common) { DT<-DT[date>=common.start.date&date<=common.end.date] } # common time period or full time period
+  if(common) { DT<-DT[date>=common.start.date&date<=common.end.date,] } # common time period or full time period
   DT.start<-min(DT$date)
   DT.end<-max(DT$date)
   DT[,roll:=rollapplyr(value,width=width,FUN=aror,fill=NA),by=variable] # add the roll column
@@ -75,7 +75,7 @@ jf.return.chart<-function(longDataFrame,common=TRUE) {
   DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
   common.start.date<-as.Date(max(DT[,min(date),by=variable]$V1))
   common.end.date<-as.Date(min(DT[,max(date),by=variable]$V1))
-  if(common) { DT<-DT[date>=common.start.date&date<=common.end.date] } # common time period or full time period
+  if(common) { DT<-DT[date>=common.start.date&date<=common.end.date,] } # common time period or full time period
   DT.start<-min(DT$date)
   DT.end<-max(DT$date)
   DT[value>0,sign:="positive",by=variable] # add the sign column
