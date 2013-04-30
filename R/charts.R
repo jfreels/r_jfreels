@@ -6,6 +6,13 @@ lapply(libs,require,character.only=TRUE)
 require(RColorBrewer)
 col.brew = brewer.pal(name="RdBu",n=11)
 
+jf.test<-function(longDataFrame) {
+  DF<-as.data.frame(longDataFrame)
+  DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
+  common.start.date<-max(DT[,list(start_date=min(date)),by=variable]$start_date)
+  common.start.date
+}
+
 # Total Return Chart
 jf.vami.chart<-function(longDataFrame,common=TRUE) {
   DF<-as.data.frame(longDataFrame)
