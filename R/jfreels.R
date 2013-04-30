@@ -28,9 +28,9 @@ jf.stats<-function (longDataFrame) {
         end=max(date))
 }
 
-dt.stats<-function (data.table) {
+dt.stats<-function (dataTable) {
   # data should have columns "date","variable","value"
-  data.table[,list(cror=cror(value),
+  dataTable[,list(cror=cror(value),
             aror=aror(value),
             asd=asd(value),
             sharpe=sharpe(value),
