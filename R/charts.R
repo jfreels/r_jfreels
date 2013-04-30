@@ -1,20 +1,18 @@
 ### Charting functions
-libs<-c("reshape2","plyr","quantmod","ggplot2","scales","data.table")
-lapply(libs,require,character.only=TRUE)
+  libs<-c("reshape2","plyr","quantmod","ggplot2","scales","data.table")
+  lapply(libs,require,character.only=TRUE)
 
 # colors
-require(RColorBrewer)
-col.brew = brewer.pal(name="RdBu",n=11)
+  require(RColorBrewer)
+  col.brew = brewer.pal(name="RdBu",n=11)
 
 # Test functions
-jf.test<-function(dataTable) {
-  z<-dataTable
-  z[,min(date)]
-}
-
-jf.min.date<-function(vector) {
-  min(vector)
-}
+  jf_dates<-function(DT) {
+    list(all=DT[,list(start_date=min(date),end_date=max(date)),by=variable],
+         max_start_date=max(DT[,list(start_date=min(date),end_date=max(date)),by=variable]$start_date),
+         min_end_date=min(DT[,list(start_date=min(date),end_date=max(date)),by=variable]$end_date)
+         )
+  }
 
 # Total Return Chart
 jf.vami.chart<-function(longDataFrame,common=TRUE) {
