@@ -8,9 +8,9 @@ col.brew = brewer.pal(name="RdBu",n=11)
 
 # Test functions
 jf.test<-function(dataTable) {
-  list(date_list=dataTable[,list(start_date=min(date),end_date=max(date)),by=variable],
-       earliest_start_date=max(dataTable[,min(date),by=variable]$V1),
-       latest_end_date=min(dataTable[,max(date),by=variable]$V1)
+  list(date_list=dataTable[,list(min(date),max(date)),by=variable]
+       #earliest_start_date=max(dataTable[,min(date),by=variable]$V1),
+       #latest_end_date=min(dataTable[,max(date),by=variable]$V1)
        )
 }
 
