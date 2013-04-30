@@ -7,10 +7,10 @@ require(RColorBrewer)
 col.brew = brewer.pal(name="RdBu",n=11)
 
 jf.test<-function(longDataFrame) {
-  DF<-as.data.frame(longDataFrame)
   DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
-  common.start.date<-max(DT[,list(start_date=min(date)),by=variable]$start_date)
-  common.start.date
+  DT$date<-as.Date(DT$date)
+  DT[,list(start_date=min(date)),by=variable]$start_date
+  #common.start.date
   # common.end.date<-min(DT[,list(end_date=max(date)),by=variable]$end_date)
   # ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date],DT)
   # DT.start<-min(DT$date)
