@@ -10,9 +10,9 @@ col.brew = brewer.pal(name="RdBu",n=11)
 jf.vami.chart<-function(longDataFrame,common=TRUE) {
   DF<-as.data.frame(longDataFrame)
   DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
-  common.start.date<-as.Date(max(DT[,min(date),by=variable]$V1))
-  common.end.date<-as.Date(min(DT[,max(date),by=variable]$V1))
-  ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date,],DT)
+  common.start.date<-as.Date(max(DT[,list(start_date=min(date)),by=variable]$start_date))
+  common.end.date<-as.Date(min(DT[,list(end_date=max(date)),by=variable]$end_date))
+  ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date],DT)
   DT.start<-min(DT$date)
   DT.end<-max(DT$date)
   DT[,vami:=vami(value)-1,by=variable]
@@ -30,9 +30,9 @@ jf.vami.chart<-function(longDataFrame,common=TRUE) {
 jf.dd.chart<-function(longDataFrame,common=TRUE) {
   DF<-as.data.frame(longDataFrame)
   DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
-  common.start.date<-as.Date(max(DT[,min(date),by=variable]$V1))
-  common.end.date<-as.Date(min(DT[,max(date),by=variable]$V1))
-  ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date,],DT)
+  common.start.date<-as.Date(max(DT[,list(start_date=min(date)),by=variable]$start_date))
+  common.end.date<-as.Date(min(DT[,list(end_date=max(date)),by=variable]$end_date))
+  ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date],DT)
   DT.start<-min(DT$date)
   DT.end<-max(DT$date)
   DT[,dd:=dd(value),by=variable]
@@ -50,9 +50,9 @@ jf.dd.chart<-function(longDataFrame,common=TRUE) {
 jf.rolling.chart<-function(longDataFrame,common=TRUE,width=12) {
   DF<-as.data.frame(longDataFrame)
   DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
-  common.start.date<-as.Date(max(DT[,min(date),by=variable]$V1))
-  common.end.date<-as.Date(min(DT[,max(date),by=variable]$V1))
-  ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date,],DT) # common time period or full time period
+  common.start.date<-as.Date(max(DT[,list(start_date=min(date)),by=variable]$start_date))
+  common.end.date<-as.Date(min(DT[,list(end_date=max(date)),by=variable]$end_date))
+  ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date],DT) # common time period or full time period
   DT.start<-min(DT$date)
   DT.end<-max(DT$date)
   DT[,roll:=rollapplyr(value,width=width,FUN=aror,fill=NA),by=variable] # add the roll column
@@ -73,9 +73,9 @@ jf.rolling.chart<-function(longDataFrame,common=TRUE,width=12) {
 jf.return.chart<-function(longDataFrame,common=TRUE) {
   DF<-as.data.frame(longDataFrame)
   DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
-  common.start.date<-as.Date(max(DT[,min(date),by=variable]$V1))
-  common.end.date<-as.Date(min(DT[,max(date),by=variable]$V1))
-  ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date,],DT) # common time period or full time period
+  common.start.date<-as.Date(max(DT[,list(start_date=min(date)),by=variable]$start_date))
+  common.end.date<-as.Date(min(DT[,list(end_date=max(date)),by=variable]$end_date))
+  ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date],DT) # common time period or full time period
   DT.start<-min(DT$date)
   DT.end<-max(DT$date)
   DT[value>0,sign:="positive",by=variable] # add the sign column
