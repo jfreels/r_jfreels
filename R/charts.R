@@ -9,7 +9,7 @@ col.brew = brewer.pal(name="RdBu",n=11)
 # Test functions
 jf.test<-function(dataTable) {
   z<-dataTable
-  z[,list(min(date),max(date)),by=variable]
+  z[,min(date)]
 }
 
 jf.min.date<-function(vector) {
