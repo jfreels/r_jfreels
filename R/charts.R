@@ -7,20 +7,10 @@ require(RColorBrewer)
 col.brew = brewer.pal(name="RdBu",n=11)
 
 jf.test<-function(dataTable) {
-  setkey(dataTable,variable,date)
-  #dataTable$date<-IDateTime(dataTable$date)
-  dataTable[,list(start_date=head(date,1),end_date=tail(date,1)),by=variable]
-  # DF<-longDataFrame
-  # DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
-  # DT$date<-as.Date(DT$date)
-  # DT2<-DT[,list(start_date=min(date),end_date=max(date)),by=variable]
-  # common.start.date<-max(DT2[,start_date])
-  # common.end.date<-min(DT2[,end_date])
-  # ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date],DT)
-  # DT.start<-min(DT$date)
-  # DT.end<-max(DT$date)
-  # DT[,vami:=vami(value)-1,by=variable]
-  # print(c(common.start.date,common.end.date,DT))
+  list(date_list=dataTable[,list(start_date=min(date),end_date=max(date)),by=variable],
+       earliest_start_date=max(dataTable[,min(date),by=variable]$V1),
+       latest_end_date=min(dataTable[,max(date),by=variable]$V1)
+       )
 }
 
 # Total Return Chart
