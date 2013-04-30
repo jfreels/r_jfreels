@@ -28,7 +28,7 @@ jf.vami.chart<-function(longDataFrame,common=TRUE) {
   DF<-longDataFrame
   DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
   DT$date<-as.Date(DT$date)
-  DT2<-DT[,list(start_date=min(date),end_date=max(date)),by=variable]
+  DT2<-DT[,list(start_date=head(date,1),end_date=tail(date,1)),by=variable]
   common.start.date<-max(DT2[,start_date])
   common.end.date<-min(DT2[,end_date])
   ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date],DT)
