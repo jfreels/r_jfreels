@@ -6,17 +6,18 @@ lapply(libs,require,character.only=TRUE)
 require(RColorBrewer)
 col.brew = brewer.pal(name="RdBu",n=11)
 
-jf.test<-function(longDataFrame) {
-  DF<-longDataFrame
-  DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
-  DT$date<-as.Date(DT$date)
-  DT2<-DT[,list(start_date=min(date),end_date=max(date)),by=variable]
-  common.start.date<-max(DT2[,start_date])
-  common.end.date<-min(DT2[,end_date])
-  ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date],DT)
-  DT.start<-min(DT$date)
-  DT.end<-max(DT$date)
-  DT[,vami:=vami(value)-1,by=variable]
+jf.test<-function(dataTable) {
+  data.table[,list(start_date=min(date),end_date=max(date)),by=variable]
+  # DF<-longDataFrame
+  # DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
+  # DT$date<-as.Date(DT$date)
+  # DT2<-DT[,list(start_date=min(date),end_date=max(date)),by=variable]
+  # common.start.date<-max(DT2[,start_date])
+  # common.end.date<-min(DT2[,end_date])
+  # ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date],DT)
+  # DT.start<-min(DT$date)
+  # DT.end<-max(DT$date)
+  # DT[,vami:=vami(value)-1,by=variable]
   # print(c(common.start.date,common.end.date,DT))
 }
 
