@@ -1,5 +1,5 @@
 ### Charting functions
-libs<-c("data.table","reshape2","plyr","quantmod","ggplot2","scales")
+libs<-c("reshape2","plyr","quantmod","ggplot2","scales","data.table")
 lapply(libs,require,character.only=TRUE)
 
 # colors
@@ -10,8 +10,8 @@ col.brew = brewer.pal(name="RdBu",n=11)
 jf.vami.chart<-function(longDataFrame,common=TRUE) {
   DF<-as.data.frame(longDataFrame)
   DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
-  common.start.date<-as.Date(max(DT[,list(start_date=min(date)),by=variable]$start_date))
-  common.end.date<-as.Date(min(DT[,list(end_date=max(date)),by=variable]$end_date))
+  common.start.date<-max(DT[,list(start_date=min(date)),by=variable]$start_date)
+  common.end.date<-min(DT[,list(end_date=max(date)),by=variable]$end_date)
   ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date],DT)
   DT.start<-min(DT$date)
   DT.end<-max(DT$date)
