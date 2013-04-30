@@ -7,7 +7,7 @@
   col.brew = brewer.pal(name="RdBu",n=11)
 
 # Test functions
-  jf_dates<-function(DT) {
+  jf.dates<-function(DT) {
     list(all=DT[,list(start_date=min(date),end_date=max(date)),by=variable],
          max_start_date=max(DT[,list(start_date=min(date),end_date=max(date)),by=variable]$start_date),
          min_end_date=min(DT[,list(start_date=min(date),end_date=max(date)),by=variable]$end_date)
