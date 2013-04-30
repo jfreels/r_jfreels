@@ -7,8 +7,9 @@ require(RColorBrewer)
 col.brew = brewer.pal(name="RdBu",n=11)
 
 jf.test<-function(dataTable) {
-  dataTable$date<-as.Date(dataTable$date)
-  dataTable[,list(start_date=min(as.Date(date)),end_date=max(as.Date(date))),by=variable]
+  setkey(dataTable,variable,date)
+  #dataTable$date<-IDateTime(dataTable$date)
+  dataTable[,list(start_date=head(date,1),end_date=tail(date,1)),by=variable]
   # DF<-longDataFrame
   # DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
   # DT$date<-as.Date(DT$date)
