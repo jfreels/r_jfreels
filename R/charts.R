@@ -10,9 +10,9 @@ col.brew = brewer.pal(name="RdBu",n=11)
 jf.vami.chart<-function(longDataFrame,common=TRUE) {
   DF<-as.data.frame(longDataFrame)
   DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
-  common.start.date<-max(DT[,list(start_date=min(date)),by=variable]$start_date)
-  common.end.date<-min(DT[,list(end_date=max(date)),by=variable]$end_date)
-  ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date],DT)
+  #common.start.date<-max(DT[,list(start_date=min(date)),by=variable]$start_date)
+  #common.end.date<-min(DT[,list(end_date=max(date)),by=variable]$end_date)
+  #ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date],DT)
   DT.start<-min(DT$date)
   DT.end<-max(DT$date)
   DT[,vami:=vami(value)-1,by=variable]
