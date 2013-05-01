@@ -14,6 +14,14 @@ percentUp<-function (ror) { values<-na.omit(ror); length(values[values>0])/lengt
 cror.roll<-function(ror,...) { rollapplyr(ror,...,FUN=cror,fill=NA) }
 aror.roll<-function(ror,...) { rollapplyr(ror,...,FUN=aror,fill=NA) }
 
+jf.cor<-function(DF) {
+  dat<-dcast(DF,date~variable,value.var="value")
+  dat<-na.omit(dat)
+  dat<-melt(cor(dat[-1]))
+  dat
+}
+
+
 jf.stats<-function (longDataFrame) {
   ddply(longDataFrame[,1:3],.(variable),summarise,
         # data should have columns "date","variable","value"
