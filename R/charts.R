@@ -93,7 +93,7 @@
              p<-ggplot(dat,aes(x=rev(Var1),y=rev(Var2),fill=value,label=round(value,2)))+geom_tile()+geom_text()+
                theme(legend.position="none",
                      plot.title = element_text(size=16, face="bold", hjust=0),
-                     axis.text.x = element_text(angle=-90,hjust=1,vjust=0.5))+
+                     axis.text.x = element_text(angle=-90,hjust=0,vjust=0.5))+
                labs(x=NULL,y=NULL,title=paste0("Correlation Matrix: ",start_date," to ",end_date))+
                scale_fill_gradient2(low=col.brew[8],mid=col.brew[6],high=col.brew[4],midpoint=0.3)
              print(p)
