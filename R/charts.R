@@ -24,7 +24,7 @@
     
 # data.frame Charts
   jf.chart<-function(DF,type="cror",common=TRUE) {
-    DF<-DF[c('date','variable','value')]
+    DF<-data.frame(date=DF$date,variable=DF$variable,value=DF$value)
     DF<-arrange(DF,variable,date)
     DF.dates<-jf.dates(DF)
     start_date<-DF.dates$max_start_date
@@ -85,6 +85,17 @@
                facet_wrap(~variable,ncol=1)
              #scale_x_date(expand=c(0,0))
              print(p) 
+           },
+           correlation = {
+             dat<-DF[c('date','variable','value')]
+             dat<-jf.cor(dat)
+             p<-ggplot(dat,aes(x=rev(Var1),y=rev(Var2),fill=value,label=round(value,2)))+geom_tile()+geom_text()+
+               theme(legend.position="none",
+                     plot.title = element_text(size=16, face="bold", hjust=0),
+                     axis.text.x = element_text(angle=90,hjust=1,vjust=0.5))+
+               labs(x=NULL,y=NULL,title=paste0("Correlation Matrix: ",start_date," to ",end_date))+
+               scale_fill_gradient2(low=col.brew[8],mid=col.brew[6],high=col.brew[4],midpoint=0.3)
+             print(p)
            }
     )
   }
@@ -201,3 +212,4 @@ jf.calendar.chart<-function(longDataFrame,yearly=FALSE) {
     scale_fill_gradient2(low=col.brew[3],mid=col.brew[6],high=col.brew[9])
   print(p) 
 }
+
