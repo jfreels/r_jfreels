@@ -14,35 +14,102 @@
     )
   }
   
-  df.dates<-function(DF) {
+  jf.dates<-function(DF) {
     dat<-ddply(DF,.(variable),summarise,start_date=min(date),end_date=max(date))
     list(all=dat,
          max_start_date=max(dat$start_date),
          min_end_date=min(dat$end_date)
     )
   }
-
+    
+# data.frame Charts
+  jf.chart<-function(DF,type="cror",common=TRUE) {
+    DF<-DF[c('date','variable','value')]
+    DF<-arrange(DF,variable,date)
+    DF.dates<-jf.dates(DF)
+    start_date<-DF.dates$max_start_date
+    end_date<-DF.dates$min_end_date
+    ifelse(common,DF<-subset(DF,date>=start_date & date<=end_date),DF)
+    DF<-ddply(DF,.(variable),transform,
+              cror=vami(value)-1,
+              dd=dd(value),
+              roll=aror.roll(value,width=12)
+    )
+    DF$value.sign<-NA
+    DF$value.sign[which(DF$value>0)]<-"positive"
+    DF$value.sign[which(DF$value<0)]<-"negative"
+    DF$roll.sign<-NA
+    DF$roll.sign[which(DF$roll>0)]<-"positive"
+    DF$roll.sign[which(DF$roll<0)]<-"negative"
+    # Cumulative Rate of Return Chart
+    switch(type,
+           cror = {
+             p<-ggplot(DF,aes(x=as.Date(date),y=cror,group=variable))+geom_area(fill=col.brew[8],color="black")+
+               theme(legend.position="none",
+                     plot.title = element_text(size=16, face="bold", hjust=0))+
+               labs(x=NULL,y="Total Return",title=paste0("Total Return: ",start_date," to ",end_date))+
+               scale_y_continuous(labels=percent)+
+               facet_wrap(~variable,ncol=1)
+             #scale_x_date(expand=c(0,0))
+             print(p)
+           },
+           dd = {
+             p<-ggplot(DF,aes(x=as.Date(date),y=dd,group=variable))+geom_area(fill=col.brew[4],color="black")+
+               theme(legend.position="none",
+                     plot.title = element_text(size=16, face="bold", hjust=0))+
+               labs(x=NULL,y="Drawdown",title=paste0("Drawdown: ",start_date," to ",end_date))+
+               scale_y_continuous(labels=percent)+
+               facet_wrap(~variable,ncol=1)
+             #scale_x_date(expand=c(0,0))
+             print(p)
+           },
+           roll = {
+             p<-ggplot(DF,aes(x=as.Date(date),y=roll,group=variable,fill=roll.sign))+geom_bar(stat='identity',position='identity')+
+               theme(legend.position="none",
+                     plot.title = element_text(size=16, face="bold", hjust=0))+
+               labs(x=NULL,y=paste0(12," Month Rolling Return (Annualized)"),title=paste0(12," Month Rolling Return (Annualized): ",start_date," to ",end_date))+
+               scale_y_continuous(labels=percent)+ # make the y labels percentage
+               scale_fill_manual(values=c("positive"=col.brew[8],"negative"=col.brew[4]))+ # positive values blue, negative values red
+               facet_wrap(~variable,ncol=1)
+             #scale_x_date(expand=c(0,0))
+             print(p) 
+           },
+           return = {
+             p<-ggplot(DF,aes(x=as.Date(date),y=value,group=variable,fill=value.sign))+geom_bar(stat='identity',position='identity')+
+               theme(legend.position="none",
+                     plot.title = element_text(size=16, face="bold", hjust=0))+
+               #strip.text.y=element_text(angle=0,hjust=1))+ # rotate strip text horizontal
+               labs(x=NULL,y=paste0("Monthly Returns"),title=paste0("Monthly Returns: ",start_date," to ",end_date))+
+               scale_y_continuous(labels=percent)+ # make the y labels percentage
+               scale_fill_manual(values=c("positive"=col.brew[8],"negative"=col.brew[4]))+ # positive values blue, negative values red
+               facet_wrap(~variable,ncol=1)
+             #scale_x_date(expand=c(0,0))
+             print(p) 
+           }
+    )
+  }
+  
 # Total Return Chart
-jf.vami.chart<-function(longDataFrame,common=TRUE) {
-  DF<-longDataFrame
-  DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
-  DT$date<-as.Date(DT$date)
-  DT2<-DT[,list(start_date=head(date,1),end_date=tail(date,1)),by=variable]
-  common.start.date<-max(DT2[,start_date])
-  common.end.date<-min(DT2[,end_date])
-  ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date],DT)
-  DT.start<-min(DT$date)
-  DT.end<-max(DT$date)
-  DT[,vami:=vami(value)-1,by=variable]
-  p<-ggplot(DT,aes(x=as.Date(date),y=vami,group=variable))+geom_area(fill=col.brew[8],color="black")+
-    theme(legend.position="none",
-          plot.title = element_text(size=16, face="bold", hjust=0))+
-    labs(x=NULL,y="Total Return",title=paste0("Total Return: ",DT.start," to ",DT.end))+
-    scale_y_continuous(labels=percent)+
-    facet_wrap(~variable,ncol=1)
-    #scale_x_date(expand=c(0,0))
-  print(p)
-}
+  jf.vami.chart<-function(longDataFrame,common=TRUE) {
+    DF<-longDataFrame
+    DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value)
+    DT$date<-as.Date(DT$date)
+    DT2<-DT[,list(start_date=head(date,1),end_date=tail(date,1)),by=variable]
+    common.start.date<-max(DT2[,start_date])
+    common.end.date<-min(DT2[,end_date])
+    ifelse(common,DT<-DT[date>=common.start.date&date<=common.end.date],DT)
+    DT.start<-min(DT$date)
+    DT.end<-max(DT$date)
+    DT[,vami:=vami(value)-1,by=variable]
+    p<-ggplot(DT,aes(x=as.Date(date),y=vami,group=variable))+geom_area(fill=col.brew[8],color="black")+
+      theme(legend.position="none",
+            plot.title = element_text(size=16, face="bold", hjust=0))+
+      labs(x=NULL,y="Total Return",title=paste0("Total Return: ",DT.start," to ",DT.end))+
+      scale_y_continuous(labels=percent)+
+      facet_wrap(~variable,ncol=1)
+      #scale_x_date(expand=c(0,0))
+    print(p)
+  }
 
 # Drawdown Chart
 jf.dd.chart<-function(longDataFrame,common=TRUE) {
