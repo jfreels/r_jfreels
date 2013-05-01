@@ -90,7 +90,7 @@
            correlation = {
              dat<-DF[c('date','variable','value')]
              dat<-jf.cor(dat)
-             p<-ggplot(dat,aes(x=rev(Var1),y=rev(Var2),fill=value,label=round(value,2)))+geom_tile()+geom_text()+
+             p<-ggplot(dat,aes(x=Var1,y=Var2,fill=value,label=round(value,2)))+geom_tile()+geom_text()+
                theme(legend.position="none",
                      plot.title = element_text(size=16, face="bold", hjust=0),
                      axis.text.x = element_text(angle=-90,hjust=0,vjust=0.5))+
