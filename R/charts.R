@@ -11,7 +11,15 @@
     list(all=DT[,list(start_date=min(date),end_date=max(date)),by=variable],
          max_start_date=max(DT[,list(start_date=min(date),end_date=max(date)),by=variable]$start_date),
          min_end_date=min(DT[,list(start_date=min(date),end_date=max(date)),by=variable]$end_date)
-         )
+    )
+  }
+  
+  df.dates<-function(DF) {
+    dat<-ddply(DF,.(variable),summarise,start_date=min(date),end_date=max(date))
+    list(all=dat,
+         max_start_date=max(dat$start_date),
+         min_end_date=min(dat$end_date)
+    )
   }
 
 # Total Return Chart
