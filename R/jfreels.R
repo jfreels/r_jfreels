@@ -11,8 +11,10 @@ maxdd<-function (ror) { min(dd(ror)) }
 dd<-function (ror) { -(1 - vami(ror)/cummax(c(1, cummax(vami(ror))))[-1]) }
 omega<-function (ror) { sum(ror[ror>0])/sum(abs(ror[ror<0])) }
 percentUp<-function (ror) { values<-na.omit(ror); length(values[values>0])/length(values) }
-cror.roll<-function(ror,...) { rollapplyr(ror,...,FUN=cror,fill=NA) }
-aror.roll<-function(ror,...) { rollapplyr(ror,...,FUN=aror,fill=NA) }
+roll.cror<-function(ror,n) {
+  vami<-c(1,vami(ror))
+  head(c(rep(NA,n-1),vami[-c(1:n)]/vami-1),-n)
+}
 
 jf.cor<-function(DF) {
   dat<-dcast(DF,date~variable,value.var="value")
