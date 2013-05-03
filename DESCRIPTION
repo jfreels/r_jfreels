@@ -7,3 +7,4 @@ Author: jfreels
 Maintainer: jfreels <jfreels@gmail.com>
 Description: Functions used by/created by jfreels
 License: What license is it under?
+Depends: data.table

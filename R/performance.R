@@ -15,7 +15,6 @@ dt.rolling.table<-function(DT,common=TRUE,n=12) {
   DT.summary
 }
 
-
 test_date<-function(DF) {
   DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value,key=c('variable','value'))
   DT[,list(start_date=min(date),end_date=max(date)),by=variable]
