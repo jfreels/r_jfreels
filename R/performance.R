@@ -12,5 +12,11 @@ dt.rolling.table<-function(DT,common=TRUE,n=12) {
                        start=min(date),
                        end=max(date)),by=variable]
   setnames(DT.summary,old=c("max.roll","min.roll","avg.roll","up.roll"),new=c(paste0("max.",n),paste0("min.",n),paste0("avg.",n),paste0("up.",n)))
-  as.data.frame(DT.summary)
+  DT.summary
+}
+
+
+test_date<-function(DF) {
+  DT<-data.table(date=DF$date,variable=DF$variable,value=DF$value,key=c('variable','value'))
+  DT[,list(start_date=min(date),end_date=max(date)),by=variable]
 }
