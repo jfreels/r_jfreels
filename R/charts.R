@@ -34,7 +34,7 @@
     DF<-ddply(DF,.(variable),transform,
               cror=vami(value)-1,
               dd=dd(value),
-              roll=aror.roll(value,width=12)
+              roll=roll.cror(value,n=12)
     )
     DF$value.sign<-NA
     DF$value.sign[which(DF$value>0)]<-"positive"
@@ -68,7 +68,7 @@
              p<-ggplot(DF,aes(x=as.Date(date),y=roll,group=variable,fill=roll.sign))+geom_bar(stat='identity',position='identity')+
                theme(legend.position="none",
                      plot.title = element_text(size=16, face="bold", hjust=0))+
-               labs(x=NULL,y=paste0(12," Month Rolling Return (Annualized)"),title=paste0(12," Month Rolling Return (Annualized): ",start_date," to ",end_date))+
+               labs(x=NULL,y=paste0(12," Month Rolling Return (Total Return)"),title=paste0(12," Month Rolling Return (Total Return): ",start_date," to ",end_date))+
                scale_y_continuous(labels=percent)+ # make the y labels percentage
                scale_fill_manual(values=c("positive"=col.brew[8],"negative"=col.brew[4]))+ # positive values blue, negative values red
                facet_wrap(~variable,ncol=1)
