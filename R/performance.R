@@ -22,17 +22,17 @@ jf.tr.table<-function(DT) {
   YTD<-DT[year(date)==year(max.date),list(YTD=cror(value)),by=variable]
   dat<-join(MTD,YTD,by='variable')
   # managers with track records > 12 months
-  names12<-as.character(DT[,.N-12,by=variable][V1>0]$variable)
-  last12<-DT[names12,.SD[(.N-12):(.N)]][,list(last12=cror(value)),by=variable]
+  names12<-as.character(DT[,.N-11,by=variable][V1>0]$variable)
+  last12<-DT[names12,.SD[(.N-11):(.N)]][,list(last12=cror(value)),by=variable]
   dat<-join(dat,last12,by='variable')
-  names24<-as.character(DT[,.N-24,by=variable][V1>0]$variable)
-  last24<-DT[names24,.SD[(.N-24):(.N)]][,list(last24=cror(value)),by=variable]
+  names24<-as.character(DT[,.N-23,by=variable][V1>0]$variable)
+  last24<-DT[names24,.SD[(.N-23):(.N)]][,list(last24=cror(value)),by=variable]
   dat<-join(dat,last24,by='variable')
-  names36<-as.character(DT[,.N-36,by=variable][V1>0]$variable)
-  last36<-DT[names36,.SD[(.N-36):(.N)]][,list(last36=cror(value)),by=variable]
+  names36<-as.character(DT[,.N-35,by=variable][V1>0]$variable)
+  last36<-DT[names36,.SD[(.N-35):(.N)]][,list(last36=cror(value)),by=variable]
   dat<-join(dat,last36,by='variable')
-  names60<-as.character(DT[,.N-60,by=variable][V1>0]$variable)
-  last60<-DT[names60,.SD[(.N-60):(.N)]][,list(last60=cror(value)),by=variable]
+  names60<-as.character(DT[,.N-59,by=variable][V1>0]$variable)
+  last60<-DT[names60,.SD[(.N-59):(.N)]][,list(last60=cror(value)),by=variable]
   dat<-join(dat,last60,by='variable')
   dat
 }
