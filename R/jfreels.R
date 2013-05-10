@@ -4,6 +4,7 @@ ror<-function (price,period=1) {
 }
 vami<-function (ror) { cumprod(na.omit(ror) + 1) }
 aror<-function (ror) { (1 + cror(ror))^(12/length(ror)) - 1 }
+tr<-function(ror) { cumprod(na.omit(ror)+1)-1 } # total return
 cror<-function (ror) { tail(vami(ror), 1) - 1 }
 asd<-function (ror) { sd(ror) * sqrt(12) }
 sharpe<-function (ror) { aror(ror)/asd(ror) }

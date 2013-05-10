@@ -30,3 +30,8 @@ drought.current<-function (ror,percent=FALSE) {
 		drought.current/length(ror),
 		drought.current)
 }
+
+# Drought table
+jf.drought.table<-function(DF) {
+  DF[,`:=`(drought.value=drought(value)$value,drought.index=drought())]
+}
