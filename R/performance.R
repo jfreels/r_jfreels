@@ -15,11 +15,13 @@ dt.rolling.table<-function(DT,common=TRUE,n=12) {
   DT.summary
 }
 
-jf.tr.table<-function(DT) {
+jf.tr.table<-function(DT,asof,allocation=FALSE) {
   setkey(DT,variable,date)
-  max.date<-max(DT$date)
-  MTD<-DT[,list(MTD=tail(value,1)),by=variable]
-  YTD<-DT[year(date)==year(max.date),list(YTD=cror(value)),by=variable]
+  asof<-as.Date(asof)
+  ifelse(allocation==TRUE,
+    MTD<-DT[date==asof,list(date,variable,'%'=allocation,MTD=value)],
+    MTD<-DT[date==asof,list(date,variable,MTD=value)])
+  YTD<-DT[year(date)==year(asof),list(YTD=cror(value)),by=variable]
   dat<-join(MTD,YTD,by='variable')
   # managers with track records > 12 months
   names12<-as.character(DT[,.N-11,by=variable][V1>0]$variable)
