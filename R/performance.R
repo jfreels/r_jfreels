@@ -19,7 +19,7 @@ jf.tr.table<-function(DT,asof,allocation=FALSE) {
   setkey(DT,variable,date)
   asof<-as.Date(asof)
   ifelse(allocation==TRUE,
-    MTD<-DT[date==asof,list(date,variable,Allocation,MTD=value)],
+    MTD<-DT[date==asof,list(date,variable,Allocation=allocation,MTD=value)],
     MTD<-DT[date==asof,list(date,variable,MTD=value)])
   YTD<-DT[year(date)==year(asof),list(YTD=cror(value)),by=variable]
   dat<-join(MTD,YTD,by='variable')
