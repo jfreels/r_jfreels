@@ -72,9 +72,9 @@ calendarTable<-function (oneFundLongDataFrame) {
   row.names(calendarTable)<-calendarTable[,1]
   calendarTable<-calendarTable[,-1]
   calendarTable$Year<-apply(calendarTable,1,aror)
-  calendarTable<-round(calendarTable,2)
   calendarTable
 }
+
 
 # Data formatting functions
 longToXts<-function (longDataFrame) { xts(longDataFrame[,-1],longDataFrame[,1]) }
