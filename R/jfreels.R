@@ -65,17 +65,6 @@ dt.stats<-function (dataTable) {
       by=variable]
 }
 
-calendarTable<-function (oneFundLongDataFrame) {
-  calendarTable<-dcast(oneFundLongDataFrame,year(date)~month(date),value.var="value")
-  names(calendarTable)<-c("Year",month.abb)
-  calendarTable<-arrange(calendarTable,-Year)
-  row.names(calendarTable)<-calendarTable[,1]
-  calendarTable<-calendarTable[,-1]
-  calendarTable$Year<-apply(calendarTable,1,aror)
-  calendarTable
-}
-
-
 # Data formatting functions
 longToXts<-function (longDataFrame) { xts(longDataFrame[,-1],longDataFrame[,1]) }
 xtsToLong<-function (Xts) { 
