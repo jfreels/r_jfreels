@@ -22,6 +22,8 @@ jf.tr.table<-function(DT,asof,allocation=FALSE) {
   dat<-join(dat,last60,by='variable')
   setkey(dat,variable)
   dat<-dat[DT.variables] # merge dat and DT.variables in order to keep all the names in the original dataset
-  setcolorder(dat,neworder=c('date','variable','MTD','YTD','Last12','Last24','Last36','Last60'))
+  ifelse(allocation==TRUE,
+         setcolorder(dat,neworder=c('date','variable','Allocation','MTD','YTD','Last12','Last24','Last36','Last60')),
+         setcolorder(dat,neworder=c('date','variable','MTD','YTD','Last12','Last24','Last36','Last60')))
   dat
 }
