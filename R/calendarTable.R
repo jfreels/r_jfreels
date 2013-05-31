@@ -4,6 +4,7 @@ calendarTable<-function (oneFundLongDataFrame) {
   calendarTable<-arrange(calendarTable,-Year)
   row.names(calendarTable)<-calendarTable[,1]
   calendarTable<-calendarTable[,-1]
-  calendarTable$Year<-apply(calendarTable,1,aror)
+  calendarTable$YTD<-apply(calendarTable,1,aror)
+  calendarTable$ITD<-rev(vami(rev(calendarTable$YTD))-1)
   calendarTable
 }
