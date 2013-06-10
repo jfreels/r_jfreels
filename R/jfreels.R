@@ -11,8 +11,8 @@ aror<-function (ror,periods=12) {
   
 tr<-function(ror) { cumprod(na.omit(ror)+1)-1 } # total return
 cror<-function (ror) { tail(vami(ror), 1) - 1 }
-asd<-function (ror) { sd(ror) * sqrt(12) }
-sharpe<-function (ror) { aror(ror)/asd(ror) }
+asd<-function (ror,periods=12) { sd(ror) * sqrt(periods) }
+sharpe<-function (ror,periods=12) { aror(ror,periods)/asd(ror,periods) }
 maxdd<-function (ror) { min(dd(ror)) }
 dd<-function (ror) { -(1 - vami(ror)/cummax(c(1, cummax(vami(ror))))[-1]) }
 omega<-function (ror) { sum(ror[ror>0])/sum(abs(ror[ror<0])) }
