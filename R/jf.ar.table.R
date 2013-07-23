@@ -1,4 +1,4 @@
-jf.tr.table<-function(DT,asof,allocation=FALSE) {
+jf.ar.table<-function(DT,asof,allocation=FALSE) {
   setkey(DT,variable,date)
   DT.variables<-data.table(variable=unique(DT$variable),key='variable')
   asof<-as.Date(asof)
