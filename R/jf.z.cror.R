@@ -4,7 +4,7 @@ col.brew = brewer.pal(name="RdBu",n=11)
 jf.z.cror <- function (name, DT=z) {
   dat <- DT[name]
   dat[,cror:=vami(value)-1,by=variable]
-  dat_title <- paste0(unique(dat$variable),"\nCumulative Return & Drought\nTrailing 60 Months\n",head(dat$date,1)," to ",tail(dat$date,1))
+  dat_title <- paste0(unique(dat$variable),"\nCumulative Return & Drought\n",head(dat$date,1)," to ",tail(dat$date,1))
   drought_current<-jf.table.drought(dat,type='current')
   drought_current_start<-drought_current$drought.start
   drought_current_end<-drought_current$drought.end 

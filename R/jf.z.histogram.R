@@ -3,7 +3,7 @@ col.brew = brewer.pal(name="RdBu",n=11)
 
 jf.z.histogram <- function (name, DT=z) {
   dat <- DT[name]
-  dat_title <- paste0(unique(dat$variable),"\nHistogram of monthly returns\nTrailing 60 Months\n",head(dat$date,1)," to ",tail(dat$date,1))
+  dat_title <- paste0(unique(dat$variable),"\nHistogram of monthly returns\n",head(dat$date,1)," to ",tail(dat$date,1))
   dat_last <- tail(dat,1)
   p<-ggplot(dat,aes(x=value))+
     geom_histogram(fill='gray',color='white',binwidth=0.01)+
