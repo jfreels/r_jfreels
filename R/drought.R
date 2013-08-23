@@ -3,6 +3,7 @@
 
 # All drought values
 drought <- function (ror) {
+	ror<-as.vector(ror)
 	dat<-data.frame(ror=ror,cror=vami(ror)-1)
 	dat$drought_cror<-NA # create a column called drought_cror
 	dat$drought_cror[which(dat$cror<0)]<-0 # set negative cror values to 0 for drought_cor column
