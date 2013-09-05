@@ -2,6 +2,7 @@ require(RColorBrewer)
 col.brew = brewer.pal(name="RdBu",n=11)
 
 jf.z.cror <- function (name, DT=z) {
+  setkey(DT,variable,date)
   dat <- DT[name]
   dat[,cror:=vami(value)-1,by=variable]
   dat_title <- paste0(unique(dat$variable),"\nCumulative Return & Drought\n",head(dat$date,1)," to ",tail(dat$date,1))
