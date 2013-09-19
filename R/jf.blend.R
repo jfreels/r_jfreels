@@ -12,6 +12,19 @@ jf.blend<-function(names,DT=z,value) {
   dat
 }
 
+jf.blend.multiple<-function(names,DT=z,values) {
+  dat_names<-names # pick names
+  dat<-DT[variable %in% dat_names] # create data set using those names
+  dat_start<-max(jf.table.dates(dat)$data_start) # find latest start date
+  dat_end<-min(jf.table.dates(dat)$data_end) # find earliest end date
+  dat<-dat[date>=dat_start][date<=dat_end] # filter the data set based on the dates
+  dat<-dcast(dat,date~variable,value.var='value')
+  dat$blend<-apply(dat[,-1]*values,1,sum)
+  dat<-data.frame(date=dat$date,blend=dat$blend)
+  dat<-melt(dat,id.vars='date')
+  data.table(dat)
+}
+
 jf.mass.blend<-function(blend_names,blend_seq,...) {
   # blend stats
   blend<-jf.blend(names=blend_names,...,value=1)
