@@ -7,7 +7,3 @@ dt.xts <- function (dt) {
   names(dt_xts)<-dt_names
   dt_xts
 }
-
-dt.cor <- function (dt) {
-	cor(na.omit(dt.xts(dt)))
-}
