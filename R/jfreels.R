@@ -14,6 +14,7 @@ cror<-function (ror) { tail(vami(ror), 1) - 1 }
 asd<-function (ror,periods=12) { sd(ror) * sqrt(periods) }
 sharpe<-function (ror,periods=12) { aror(ror,periods)/asd(ror,periods) }
 maxdd<-function (ror) { min(dd(ror)) }
+currentdd<-function (ror) { tail(dd(ror),1) }
 dd<-function (ror) { -(1 - vami(ror)/cummax(c(1, cummax(vami(ror))))[-1]) }
 calmar<-function (ror,...) { aror(ror,...)/abs(maxdd(ror)) }
 pain<-function (ror,...) { aror(ror,...)/abs(mean(dd(ror))) }
