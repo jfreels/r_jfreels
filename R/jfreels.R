@@ -20,6 +20,7 @@ pain<-function (ror,...) { aror(ror,...)/abs(mean(dd(ror))) }
 hwm<-function (ror) { 1/(1+tail(dd(ror),1))-1 }
 omega<-function (ror) { sum(ror[ror>0])/sum(abs(ror[ror<0])) }
 percentUp<-function (ror) { values<-na.omit(ror); length(values[values>0])/length(values) }
+percentDown<-function (ror) { values<-na.omit(ror); length(values[values<0])/length(values)}
 roll.cror<-function(ror,n) {
   vami<-c(1,vami(ror))
   head(c(rep(NA,n-1),vami[-c(1:n)]/vami-1),-n)
