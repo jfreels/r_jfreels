@@ -10,7 +10,7 @@ json<-function(data.frame,sink=FALSE) {
 	# convert to json
 	json_data<-unname(alply(d1,1,identity))
 	# write to file
-  if(sink==TRUE) {
+  if(sink!=FALSE) {
   	sink(sink)
   	cat(toJSON(json_data,pretty=TRUE))
   	sink()
