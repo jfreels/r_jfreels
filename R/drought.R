@@ -13,8 +13,7 @@ drought <- function (ror) {
 	dat$drought_index<-apply(dat[,c('drought_cror','index')],1,function (x) min(na.omit(x)))
 	dat$drought_index[dat$drought_index>=as.integer(row.names(dat))]<-NA
 	dat$drought_value<-as.integer(row.names(dat))-dat$drought_index
-	dat$drought_pct<-dat$drought_value/length(dat$drought_value)
-	dat<-dat[,c('ror','cror','drought_index','drought_value','drought_pct')]
+	dat$drought_value[is.na(dat$drought_value)]<-0
 	dat$drought_value
 }
 
