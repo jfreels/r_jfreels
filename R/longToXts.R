@@ -1,0 +1,1 @@
+longToXts<-function (longDataFrame) { xts(longDataFrame[,-1],longDataFrame[,1]) }
