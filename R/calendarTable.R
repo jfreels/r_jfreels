@@ -1,8 +1,9 @@
-calendarTable<-function (DT,ITD=FALSE) {
-  DT<-DT[,list(date,value)]
-  if(nrow(DT<12)) {
-    calendarBlank<-data.frame(date=(max(DT$date)+days(1))+months(1:12)-days(1),value=rep(NA,12))
-    calendarTable<-rbind(DT,calendarBlank)
+calendarTable<-function (df,ITD=FALSE) {
+	df<-df %>%
+		select(date,value)
+  if(nrow(df<12)) {
+    calendarBlank<-data.frame(date=(max(df$date)+days(1))+months(1:12)-days(1),value=rep(NA,12))
+    calendarTable<-rbind(df,calendarBlank)
   }
   calendarTable<-dcast(calendarTable,year(date)~month(date),value.var="value")
   names(calendarTable)<-c("Year",month.abb)
