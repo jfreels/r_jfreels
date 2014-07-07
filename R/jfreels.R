@@ -1,15 +1,4 @@
 # Financial Time Series Functions
-ror<-function (price,period=1) { 
-  head(c(rep(NA,period),price[-c(1:period)]/price-1),-period) 
-}
-
-vami<-function (ror) { cumprod(na.omit(ror) + 1) }
-
-aror<-function (ror,periods=12) {
-  (1+cror(ror))^(periods/length(ror))-1
-}
-  
-tr<-function(ror) { cumprod(na.omit(ror)+1)-1 } # total return
 cror<-function (ror) { tail(vami(ror), 1) - 1 }
 asd<-function (ror,periods=12) { sd(ror) * sqrt(periods) }
 sharpe<-function (ror,periods=12) { aror(ror,periods)/asd(ror,periods) }

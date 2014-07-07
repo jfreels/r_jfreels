@@ -1,3 +1,8 @@
-dt.dates.filter<-function(DT) {
-  DT[date>=max(dt.dates(DT)$data_start)][date<=min(dt.dates(DT)$data_end)]
+dt.dates.filter<-function(dt) {
+	start_date<-jf.dates(dt)$max_start_date
+	end_date<-jf.dates(dt)$min_end_date
+  dt %>%
+  	tbl_df() %>%
+  	group_by(variable) %>%
+  	filter(date>=start_date,date<=end_date)
 }
