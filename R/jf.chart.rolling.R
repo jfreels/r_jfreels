@@ -33,7 +33,7 @@ jf.chart.rolling<-function(df,n_months=12) {
     theme(legend.position='none',
           plot.title=element_text(size=16, face='bold', hjust=0))+
     labs(x=NULL,
-         y=paste0(n_months,' Months Rolling Returns',
+         y=paste0(n_months,' Months Rolling Returns'),
          title=paste0('Rolling Returns (', n_months, '): ', df_start_date,' to ', df_end_date))+
     facet_wrap(~variable, ncol=1)
   print(p)
