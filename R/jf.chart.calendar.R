@@ -20,7 +20,7 @@ jf.chart.calendar<-function(df) {
       theme_bw()+
       theme(legend.position="none",
         plot.title = element_text(size=16, face="bold", hjust=0))+
-      labs(x=NULL,y=NULL,title=paste0("Track Record: ",df_start_date," to ",df_end_date))+
+      labs(x=NULL,y=NULL,title=paste0("Monthly Returns: ",df_start_date," to ",df_end_date))+
       facet_wrap(~name,ncol=1)+
       scale_fill_gradient2(low=col.brew[3],mid=col.brew[6],high=col.brew[9])
   print(p) 
