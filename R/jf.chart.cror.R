@@ -1,8 +1,6 @@
 # Plot a cumulative return chart
 jf.chart.cror<-function(df) {
   # seteup
-  require(RColorBrewer)
-  col.brew = brewer.pal(name="RdBu",n=11)
   require(scales)
   # error catch
   if(length(unique(df$variable))>1) stop('More than 1 variable in data frame.')
