@@ -27,14 +27,14 @@ jf.chart.rolling<-function(df,n_months=12) {
              stat='identity')+
     geom_hline(yintercept=0,linetype='dotted')+
     scale_fill_manual(values=c('positive'=color_positive,'negative'=color_negative))+
-    scale_x_date(expand=c(0.1,0.1))+
+    scale_x_date(limits=c(df_start_date,df_end_date),expand=c(0.1,0.1))+
     scale_y_continuous(labels=percent)+
     theme_bw()+
     theme(legend.position='none',
           plot.title=element_text(size=16, face='bold', hjust=0))+
     labs(x=NULL,
          y=paste0(n_months,' Months Rolling Returns'),
-         title=paste0('Rolling Returns (', n_months, '): ', df_start_date,' to ', df_end_date))+
+         title=paste0('Rolling Returns (', n_months, ' Months): ', df_start_date,' to ', df_end_date))+
     facet_wrap(~variable, ncol=1)
   print(p)
 }

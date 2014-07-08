@@ -6,7 +6,7 @@ jf.chart.calendar<-function(df) {
 		calendarTable_df() %>%
 		melt(id.var='year') %>%
 		mutate(name=unique(df$variable))
-	df_start_date<-min(df$variable)
+	df_start_date<-min(df$date)
 	df_end_date<-max(df$date)
 	# plot
 	p<-df_melt %>%
