@@ -1,6 +1,6 @@
 require(RColorBrewer)
 col.brew = brewer.pal(name="RdBu",n=11)
-jf.z.histogram <- function (df) {
+jf.chart.histogram <- function (df) {
   # assign values to the last 3 dfes to color them later
   df_n<-nrow(df)
   df_n_sequence<-c(rep('tx',df_n-3),'t-2','t-1','t')
