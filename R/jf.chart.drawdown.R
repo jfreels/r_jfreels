@@ -28,7 +28,7 @@ jf.chart.drawdown<-function(df) {
               aes(x=as.Date(date),
                   y=dd,
                   label=jf.pct(dd)),
-              hjust = 0.5,
+              hjust = 0,
               vjust = 1)+
     scale_x_date(expand=c(0.1,0.1))+
     scale_y_continuous(labels=percent)+
