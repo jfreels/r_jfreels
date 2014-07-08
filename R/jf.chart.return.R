@@ -32,7 +32,7 @@ jf.chart.return<-function(df) {
     theme(legend.position='none',
           plot.title=element_text(size=16, face='bold', hjust=0))+
     labs(x=NULL,
-         y='Total Return',
+         y='Monthly Return',
          title=paste0('Monthly Returns: ', df_start_date,' to ', df_end_date))+
     facet_wrap(~variable, ncol=1)
   print(p)

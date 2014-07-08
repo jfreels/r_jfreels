@@ -39,7 +39,7 @@ jf.chart.drawdown<-function(df) {
     theme(legend.position='none',
           plot.title=element_text(size=16, face='bold', hjust=0))+
     labs(x=NULL,
-         y='Total Return',
+         y='Drawdown',
          title=paste0('Drawdown: ', df_start_date,' to ', df_end_date))+
     facet_wrap(~variable, ncol=1)
   if(exists('df_dd_max')) p<-p+geom_text(data=df_dd_max,
