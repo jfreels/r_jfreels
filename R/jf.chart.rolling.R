@@ -1,5 +1,5 @@
-# Plot a monthy returns bar chart
-jf.chart.return<-function(df) {
+# Plot a rolling returns bar chart
+jf.chart.rolling<-function(df,n_months=12) {
   # seteup
   require(RColorBrewer)
   col.brew = brewer.pal(name="RdBu",n=11)
@@ -15,12 +15,13 @@ jf.chart.return<-function(df) {
   df_end_date<-as.Date(df_dates$min_end_date)
   df<-df %>%
     group_by(variable) %>%
-    mutate(type='positive')
-  df$type[which(df$value<0)]<-'negative'
+    mutate(roll=roll.cror(value,n=n_months),
+           type='positive')
+  df$type[which(df$roll<0)]<-'negative'
   # plot
   p<-ggplot(data=df)+
     geom_bar(aes(x=as.Date(date),
-                 y=value,
+                 y=roll,
                  group=variable,
                  fill=type),
              stat='identity')+
@@ -32,8 +33,8 @@ jf.chart.return<-function(df) {
     theme(legend.position='none',
           plot.title=element_text(size=16, face='bold', hjust=0))+
     labs(x=NULL,
-         y='Monthly Return',
-         title=paste0('Monthly Returns: ', df_start_date,' to ', df_end_date))+
+         y=paste0(n_months,' Months Rolling Returns',
+         title=paste0('Rolling Returns (', n_months, '): ', df_start_date,' to ', df_end_date))+
     facet_wrap(~variable, ncol=1)
   print(p)
 }
