@@ -16,7 +16,7 @@ jf.chart.cror<-function(df) {
     mutate(cror=vami(value)-1)
   df_cror_max<-filter(df,cror==max(df$cror))
   df_cror_end<-filter(df,date==df_end_date)
-  if(df_cror_max==df_cror_end) df_cror_max<-NULL
+  if(identical(df_cror_max,df_cror_end)) rm(df_cror_max)
   # plot
   p<-ggplot(data=df)+
     geom_line(aes(x=as.Date(date),
@@ -29,12 +29,6 @@ jf.chart.cror<-function(df) {
                   label=jf.pct(cror)),
               hjust = 0,
               vjust = 0)+
-    geom_text(data=df_cror_max,
-              aes(x=as.Date(date),
-                  y=cror,
-                  label=jf.pct(cror)),
-              hjust = 1,
-              vjust = 0)+
     scale_x_date(expand=c(0.1,0.1))+
     scale_y_continuous(labels=percent)+
     theme_bw()+
@@ -44,5 +38,11 @@ jf.chart.cror<-function(df) {
          y='Total Return',
          title=paste0('Total Return: ', df_start_date,' to ', df_end_date))+
     facet_wrap(~variable, ncol=1)
+  if(exists('df_cror_max')) p<-p+geom_text(data=df_cror_max,
+                                           aes(x=as.Date(date),
+                                               y=cror,
+                                               label=jf.pct(cror)),
+                                           hjust = 1,
+                                           vjust = 0)
   print(p)
 }
