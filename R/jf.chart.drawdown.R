@@ -3,6 +3,8 @@ jf.chart.drawdown<-function(df) {
   # seteup
   require(RColorBrewer)
   col.brew = brewer.pal(name="RdBu",n=11)
+  color_positive = col.brew[8]
+  color_negative = col.brew[4]
   require(scales)
   # error catch
   if(length(unique(df$variable))>1) stop('More than 1 variable in data frame.')
@@ -22,7 +24,8 @@ jf.chart.drawdown<-function(df) {
     geom_area(aes(x=as.Date(date),
                   y=dd,
                   group=variable),
-              fill=col.brew[4])+
+              color='black',
+              fill=color_negative)+
     geom_hline(yintercept=0,linetype='dotted')+
     geom_text(data=df_dd_end,
               aes(x=as.Date(date),
