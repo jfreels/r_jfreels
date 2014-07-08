@@ -16,6 +16,7 @@ jf.chart.cror<-function(df) {
     mutate(cror=vami(value)-1)
   df_cror_max<-filter(df,cror==max(df$cror))
   df_cror_end<-filter(df,date==df_end_date)
+  if(df_cror_max==df_cror_end) df_cror_max<-NULL
   # plot
   p<-ggplot(data=df)+
     geom_line(aes(x=as.Date(date),
