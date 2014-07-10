@@ -7,4 +7,4 @@ Author: jfreels
 Maintainer: jfreels <jfreels@gmail.com>
 Description: Functions used by/created by jfreels
 License: What license is it under?
-Depends: ggplot2,reshape2,plyr,dplyr,data.table,zoo,xts,lubridate,scales,RJSONIO
+Depends: data.table,zoo,xts,RJSONIO,ggplot2,scales,lubridate,reshape2,plyr,dplyr
