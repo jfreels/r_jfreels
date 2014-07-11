@@ -18,6 +18,7 @@ jf.chart.rolling<-function(df,n_months=12) {
     mutate(roll=roll.cror(value,n=n_months),
            type='positive')
   df$type[which(df$roll<0)]<-'negative'
+  df_max_roll<-max(abs(df$roll),na.rm=TRUE)
   # plot
   p<-ggplot(data=df)+
     geom_bar(aes(x=as.Date(date),
@@ -28,7 +29,7 @@ jf.chart.rolling<-function(df,n_months=12) {
     geom_hline(yintercept=0,linetype='dotted')+
     scale_fill_manual(values=c('positive'=color_positive,'negative'=color_negative))+
     scale_x_date(limits=c(df_start_date,df_end_date),expand=c(0.1,0.1))+
-    scale_y_continuous(labels=percent)+
+    scale_y_continuous(labels=percent, limits=c(df_max_roll*c(-1,1)))+
     theme_bw()+
     theme(legend.position='none',
           plot.title=element_text(size=16, face='bold', hjust=0))+

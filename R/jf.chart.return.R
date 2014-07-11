@@ -17,6 +17,7 @@ jf.chart.return<-function(df) {
     group_by(variable) %>%
     mutate(type='positive')
   df$type[which(df$value<0)]<-'negative'
+  df_max_value<-max(abs(df$value),na.rm=TRUE)
   # plot
   p<-ggplot(data=df)+
     geom_bar(aes(x=as.Date(date),
@@ -27,7 +28,7 @@ jf.chart.return<-function(df) {
     geom_hline(yintercept=0,linetype='dotted')+
     scale_fill_manual(values=c('positive'=color_positive,'negative'=color_negative))+
     scale_x_date(expand=c(0.1,0.1))+
-    scale_y_continuous(labels=percent)+
+    scale_y_continuous(labels=percent, limits=c(df_max_value*c(-1,1)))+
     theme_bw()+
     theme(legend.position='none',
           plot.title=element_text(size=16, face='bold', hjust=0))+
