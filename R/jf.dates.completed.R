@@ -6,6 +6,7 @@ jf.dates.completed<-function (df) {
 		unique %>%
 		lapply(function(x) { paste(x,seq(1,12),'01',sep='-') }) %>%
 		unlist %>%
+		ymd %>%
 		as.Date %>%
 		add(months(1)) %>%
 		subtract(days(1))
