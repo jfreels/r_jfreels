@@ -4,9 +4,12 @@ calendarTable<-function (df,ITD=FALSE) {
     group_by() %>%
     select(date,value)
   df_years<-unique(year(df$date))
-  df_dates<-as.Date(unlist(lapply(df_years, function (x) {
-    as.Date(paste(x,seq(1,12),'01',sep='-'))+months(1)-days(1)
-  })))
+  df_dates<-df_years %>%
+    lapply(function(x) {
+      as.Date(paste(x,seq(1,12),'01',sep='-'),format='%Y-%m-%d')+months(1)-days(1)
+    }) %>%
+    unlist %>%
+    as.Date
   df_blank<-data.frame(date=df_dates)
   df<-left_join(df_blank,df,by='date')
   calendarTable<-dcast(df,year(date)~month(date),value.var="value")
