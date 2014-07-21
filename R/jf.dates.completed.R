@@ -4,9 +4,9 @@ jf.dates.completed<-function (df) {
 		use_series(date) %>%
 		year %>%
 		unique %>%
-		lapply(function(x) {
-			as.Date(paste(x,seq(1,12),'01',sep='-'),format='%Y-%m-%d')+months(1)-days(1)
-		}) %>%
+		lapply(function(x) { paste(x,seq(1,12),'01',sep='-') }) %>%
 		unlist %>%
-		as.Date
+		as.Date %>%
+		add(months(1)) %>%
+		subtract(days(1))
 }
