@@ -1,6 +1,6 @@
 # reinstall jfreels packages
 jf.reinstall<-function () {
-	require(devtools)
+	library(devtools)
 	install_github('jfreels/r_jfreels')
-	require(jfreels)
+	library(jfreels)
 }
