@@ -1,6 +1,7 @@
 jf.stats<-function (longDataFrame) {
-  ddply(longDataFrame[,1:3],.(variable),summarise,
-        # data should have columns "date","variable","value"
+  longDataFrame %>%
+  	group_by(variable) %>%
+  	summarise(
         cror=cror(value),
         aror=aror(value),
         asd=asd(value),
@@ -9,5 +10,6 @@ jf.stats<-function (longDataFrame) {
         #droughtMaxPct=drought.max(value,percent=true),
         omega=omega(value),
         start=min(date),
-        end=max(date))
+        end=max(date)
+    )
 }
