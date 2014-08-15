@@ -1,6 +1,7 @@
 jf.dates<-function(df) {
-	df<-data.frame(date=df$date,variable=df$variable,value=df$value) %>%
-		tbl_df() %>%
+	df<-df %>%
+		tbl_df %>%
+		select(date,variable,value) %>%
 		group_by(variable) %>%
 		summarise(start_date=min(date),
 							end_date=max(date))
